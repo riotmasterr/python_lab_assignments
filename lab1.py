@@ -1,273 +1,178 @@
-#1st question
-def count_pairs(list1, target):
-    count = 0
+#Program - 1 : To count the number of vowels and consoants in the given string
+string = input("enter a string: ")
 
-    for i in range(len(list1)):
-        for j in range(i + 1, len(list1)):
-            if list1[i] + list1[j] == target:
-                count += 1
+vowels = 0
+consonants = 0
 
-    return count  
+for i in string: #checks if a character is vowel or not
+    if (i == 'a' or i == 'e' or i == 'i' or i == 'o' or i == 'u' or
+        i == 'A' or i == 'E' or i == 'I' or i == 'O' or i == 'U'):
+        vowels = vowels + 1
+    elif i.isalpha():   # count consonants only if it's a letter
+        consonants = consonants + 1
 
-
-
-list1 = [2, 7, 4, 1, 3, 6]
-target = 10
-
-count = count_pairs(list1, target)
-print("Total number of pairs with sum 10:", count)
-
-
-#2nd question
-def diff(list2):
-    
-    if len(list2) < 3:
-        return "Range determination not possible"
-
-    
-    min_value = list2[0]
-    max_value = list2[0]
-
-    
-    for i in range(1, len(list2)):
-        if list2[i] < min_value:
-            min_value = list2[i]
-        if list2[i] > max_value:
-            max_value = list2[i]
-
-   
-    return max_value - min_value
+print("the number of vowels is =", vowels)
+print("the number of consonants is =", consonants)
 
 
 
-values = [5, 3, 8, 1, 0, 4]
-result = diff(values)
 
-print("Range of the list:", result)
 
-#3rd question
-def matrix_multiply(A, B):
-    n = len(A)
-    C = []
 
-    for i in range(n):
-        row = []
-        for j in range(n):
-            sum_value = 0
-            for k in range(n):
-                sum_value += A[i][k] * B[k][j]
-            row.append(sum_value)
-        C.append(row)
+#Program 2 : Multiplication of matrix
+
+#final 2
+MAX = 20 # maximum size of the matrix
+
+def printmatrix(M, rowsize, colsize):
+    for i in range(rowsize):
+        for j in range(colsize):
+            print(M[i][j], end=" ")
+        print()
+
+def multiplymatrix(row1, col1, A, row2, col2, B):
+#conditions for the multiplication of  matrix
+    if col1 != row2:
+        return None
+
+#resultat matrix
+    C = [[0 for i in range(MAX)] for j in range(MAX)]
+
+#logic for the matrix multiplication
+    for i in range(row1):
+        for j in range(col2):
+            for k in range(col1):
+                C[i][j] += A[i][k] * B[k][j]
 
     return C
 
 
-def matrix_power(A, m):
-    result = A
+A = [[0 for i in range(MAX)] for j in range(MAX)]
+B = [[0 for i in range(MAX)] for j in range(MAX)]
 
-    for count in range(1, m):
-        result = matrix_multiply(result, A)
+row1 = int(input("enter the number of rows in matrix A: "))
+col1 = int(input("enter the number of columns in matrix A: "))
 
-    return result
+print("enter the elements for the first matrix:")
+for i in range(row1):
+    for j in range(col1):
+        A[i][j] = int(input())
 
-n = int(input())
-A = []
+row2 = int(input("enter the number of rows of second matrix: "))
+col2 = int(input("enter the number of columns of second matrix: "))
 
-for i in range(n):
-    row = []
-    for j in range(n):
-        row.append(int(input()))
-    A.append(row)
+print("enter the elements for the second matrix:")
+for i in range(row2):
+    for j in range(col2):
+        B[i][j] = int(input())
 
-m = int(input())
+print("first matrix:")
+printmatrix(A, row1, col1)
 
-power_matrix = matrix_power(A, m)
+print("second matrix:")
+printmatrix(B, row2, col2)
 
-for row in power_matrix:
-    print(row)
+result = multiplymatrix(row1, col1, A, row2, col2, B)
 
-#4th question
-def max_occuring(str):
- ch={}
- n=len(str)
- ans=' '
- cnt=0
- for i in range(n):
-  if str[i] in ch:
-   ch[str[i]] +=1
-  else:
-   ch[str[i]]=1
-
-  if cnt < ch[str[i]]:
-     ans=str[i]
-     cnt=ch[str[i]]
- return ans
-
-str="hippopotamus"
-print("Max occuring character is: ",max_occuring(str))
-   
+if result is None:
+    print("matrix multiplication is not possible")
+else:
+    print("final matrix:")
+    printmatrix(result, row1, col2)
 
 
-#5th question
+
+
+
+
+
+
+
+#Program 3: Finding the common elements between two lists
+
+list1 = [1,2,3,4,5,6]
+list2 = [2,3,4,5,6,7]
+
+common = []
+
+for i in list1:
+    if i in list2 and i not in common:
+        common.append(i)
+
+print("common elements:", common)
+
+
+
+
+
+
+
+
+
+
+# Program 4: find the transpose of a matrix
+
+def transpose(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+
+    Tmat = [[0 for _ in range(rows)] for _ in range(cols)]
+
+    for i in range(rows):
+        for j in range(cols):
+            Tmat[j][i] = matrix[i][j]
+
+    return Tmat
+
+rows = int(input("enter the number of rows: "))
+cols = int(input("enter the number of columns: "))
+
+matrix = []
+print("enter the matrix elements:")
+for i in range(rows):
+    row = list(map(int, input().split()))
+    matrix.append(row)
+
+res = transpose(matrix)
+
+print("transpose of the matrix:")
+for row in res:
+    for elem in row:
+        print(elem, end=" ")
+    print() 
+
+
+
+
+
+
+
+
+
+
+#Program 5 : finding 100 random integers between the range of 100 - 150 and find there mean median mode
 import random
 import statistics
 
-def calc(numbers):
+def calculate(numbers):
     mean = statistics.mean(numbers)
     median = statistics.median(numbers)
     mode = statistics.multimode(numbers)
     return mean, median, mode
 
 
-num = 25
-a = 1
-b = 10
+no = 100
+a = 100
+b = 150
 
-abc = []
+res = []
 
-for i in range(num):
-    abc.append(random.randint(a, b))
+for i in range(no):
+    res.append(random.randint(a, b))
 
-print(abc)
+print(res)
 
-mean, median, mode = calc(abc)
-
-print(mean)
-print(median)
-print(mode)
-#1st question
-def count_pairs(list1, target):
-    count = 0
-
-    for i in range(len(list1)):
-        for j in range(i + 1, len(list1)):
-            if list1[i] + list1[j] == target:
-                count += 1
-
-    return count  
-
-
-
-list1 = [2, 7, 4, 1, 3, 6]
-target = 10
-
-count = count_pairs(list1, target)
-print("Total number of pairs with sum 10:", count)
-
-
-#2nd question
-def diff(list2):
-    
-    if len(list2) < 3:
-        return "Range determination not possible"
-
-    
-    min_value = list2[0]
-    max_value = list2[0]
-
-    
-    for i in range(1, len(list2)):
-        if list2[i] < min_value:
-            min_value = list2[i]
-        if list2[i] > max_value:
-            max_value = list2[i]
-
-   
-    return max_value - min_value
-
-
-
-values = [5, 3, 8, 1, 0, 4]
-result = diff(values)
-
-print("Range of the list:", result)
-
-#3rd question
-def matrix_multiply(A, B):
-    n = len(A)
-    C = []
-
-    for i in range(n):
-        row = []
-        for j in range(n):
-            sum_value = 0
-            for k in range(n):
-                sum_value += A[i][k] * B[k][j]
-            row.append(sum_value)
-        C.append(row)
-
-    return C
-
-
-def matrix_power(A, m):
-    result = A
-
-    for count in range(1, m):
-        result = matrix_multiply(result, A)
-
-    return result
-
-n = int(input())
-A = []
-
-for i in range(n):
-    row = []
-    for j in range(n):
-        row.append(int(input()))
-    A.append(row)
-
-m = int(input())
-
-power_matrix = matrix_power(A, m)
-
-for row in power_matrix:
-    print(row)
-
-#4th question
-def max_occuring(str):
- ch={}
- n=len(str)
- ans=' '
- cnt=0
- for i in range(n):
-  if str[i] in ch:
-   ch[str[i]] +=1
-  else:
-   ch[str[i]]=1
-
-  if cnt < ch[str[i]]:
-     ans=str[i]
-     cnt=ch[str[i]]
- return ans
-
-str="hippopotamus"
-print("Max occuring character is: ",max_occuring(str))
-   
-
-
-#5th question
-import random
-import statistics
-
-def calc(numbers):
-    mean = statistics.mean(numbers)
-    median = statistics.median(numbers)
-    mode = statistics.multimode(numbers)
-    return mean, median, mode
-
-
-num = 25
-a = 1
-b = 10
-
-abc = []
-
-for i in range(num):
-    abc.append(random.randint(a, b))
-
-print(abc)
-
-mean, median, mode = calc(abc)
+mean, median, mode = calculate(res)
 
 print(mean)
 print(median)
